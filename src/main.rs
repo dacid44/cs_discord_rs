@@ -2,6 +2,7 @@
 
 use std::borrow::Borrow;
 use std::collections::HashSet;
+use std::path::Path;
 
 use dotenv::dotenv;
 use futures::future::join_all;
@@ -55,22 +56,24 @@ impl EnvVars {
         use std::env::var;
         use std::env::VarError;
 
-        fn get_var(name: &str) -> Result<String, VarError> {
-            if IS_DEV {
-                var(format!("DEV_{}", name))
-            } else {
-                var(name)
-            }
+        // fn get_var(name: &str) -> Result<String, VarError> {
+        //     if IS_DEV {
+        //         var(format!("DEV_{}", name))
+        //     } else {
+        //         var(name)
+        //     }
+        // }
+
+        if Path::new(".env").exists() {
+            dotenv()?;
         }
 
-        dotenv()?;
-
         Ok(Self {
-            bot_token: get_var("BOT_TOKEN")?,
-            guild_id: get_var("GUILD_ID")?.parse::<u64>()?,
-            mongodb_name: get_var("MONGODB_NAME")?,
-            mongodb_user: get_var("MONGODB_USER")?,
-            mongodb_password: get_var("MONGODB_PASSWORD")?,
+            bot_token: var("BOT_TOKEN")?,
+            guild_id: var("GUILD_ID")?.parse::<u64>()?,
+            mongodb_name: var("MONGODB_NAME")?,
+            mongodb_user: var("MONGODB_USER")?,
+            mongodb_password: var("MONGODB_PASSWORD")?,
         })
     }
 }
