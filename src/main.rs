@@ -191,6 +191,7 @@ impl ClassCommand {
             "Found {} classes: {}",
             classes.len(),
             classes.into_iter()
+                .sorted_by(|c1, c2| human_sort::compare(&c1.name, &c2.name))
                 .map(|c| if mention { c.role.mention().to_string() } else { c.name })
                 .join(", ")
         )).await?;
