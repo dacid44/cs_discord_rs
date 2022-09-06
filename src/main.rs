@@ -33,7 +33,7 @@ use crate::classes::{Class, Server};
 
 mod classes;
 
-const IS_DEV: bool = true;
+// const IS_DEV: bool = true;
 
 lazy_static! {
     static ref ENV: EnvVars = EnvVars::init().unwrap();
@@ -54,7 +54,7 @@ struct EnvVars {
 impl EnvVars {
     fn init() -> Result<Self, Error> {
         use std::env::var;
-        use std::env::VarError;
+        // use std::env::VarError;
 
         // fn get_var(name: &str) -> Result<String, VarError> {
         //     if IS_DEV {
