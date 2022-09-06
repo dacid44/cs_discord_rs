@@ -96,8 +96,6 @@ async fn get_conn() -> Client {
 
 #[tokio::main]
 async fn main() {
-    dotenv().expect("Failed loading environment variables");
-
     println!("Hello, world!");
 
     let commands = vec![echo(), register(), class(), config()];
